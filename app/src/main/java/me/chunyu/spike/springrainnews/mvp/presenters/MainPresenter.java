@@ -27,28 +27,33 @@ public class MainPresenter implements BasePresenter {
         mRepository = repository;
     }
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         loadData();
     }
 
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
 
     }
 
-    @Override public void onStop() {
+    @Override
+    public void onStop() {
         mCharactersSubscription.unsubscribe();
     }
 
-    @Override public void onDestroy() {
+    @Override
+    public void onDestroy() {
 
     }
 
-    @Override public void attachView(BaseView v) {
+    @Override
+    public void attachView(BaseView v) {
         mMainView = (MainView) v; // 绑定视图
     }
 
     private void loadData() {
-        mCharactersSubscription = mRepository.getCharacters(0)
+        mCharactersSubscription = mRepository.getCharacters(10)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(avengersCharacters -> {
